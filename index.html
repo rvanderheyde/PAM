@@ -1,0 +1,104 @@
+<html>
+  <head>
+    <meta charset="utf-8"></meta>
+    <title>Meal Merger</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <svg id="display1"></svg>
+  </body>
+
+  <script type="text/javascript">
+window.addEventListener("load", run);
+
+var GLOBAL = { ingrFlag: true};
+
+function run () {
+  initialize_view();
+  var data = get_data();
+
+}
+
+function computeSizes (svg) {     
+  var height = svg.attr("height");
+  var width = svg.attr("width");
+  var margin = 100;
+  return {height:height,
+    width: width,
+    margin: margin,
+    chartHeight: height-2*margin,
+    chartWidth: width-2*margin}
+}
+
+function initialize_view() {
+  var svg = d3.select("#display1");
+  svg.attr("height", window.screen.availHeight)
+  .attr("width", window.screen.availWidth);
+  var s = computeSizes(svg);
+
+
+
+  svg.append("text")
+  .attr("id", "loading")
+  .attr("x", s.width/2)
+  .attr("y", s.height/2)
+  .attr("dy", "0.3em")
+  .style("text-anchor", "middle")
+  .text("LOADING...")
+
+}
+
+function get_data() {
+  /*
+  * Data object will be formatted as the following(Event Queue):
+  * { ingredients: [ingredients],
+      time/order: [Instructions]}
+  * Instructions will look like:
+    { text: text,
+      icon: image,
+      time_est: Time Amount
+      Recipe_num: Recipe Number}
+  */
+  var ingredients = {oils: [
+      '2 tablespoons olive oil',
+      '1 tablespoon light soy sauce',
+      '1 teaspoon balsamic vinegar',
+      '2 teaspoon sesame oil',
+      '1/8 teaspoon Worcestershire sauce',
+      '1/4 teaspoon Dijon mustard'
+    ],
+    dairy: [
+      '3 tablespoons and 2 teaspoons grated Parmesan cheese',
+      '1 tablespoon and 1 teaspoon butter',
+      '1 teaspoon melted butter',
+      '1 cup milk',
+      '1 cup shredded sharp Cheddar cheese'
+    ],
+    spices: [
+      '1/4 teaspoon dried basil leaves',
+      '1/8  teaspoon ground black pepper',
+      '1/8 teaspoon dried thyme',
+      '1/8 teaspoon cayenne pepper',
+      '1/8 teaspoon white pepper',
+      '3/8 pinch ground nutmeg',
+      '1/4 teaspoon salt'
+    ],
+    produce: [
+      '2 clove of garlic minced',
+      '5 ounces fresh green beans, trimmed'
+    ],
+    meat: [
+      '2 skinless, boneless chicken breast halves'
+    ],
+    dry: [
+      '1/3 cup + 2 tablespoons and 2 teaspoons dry bread crumbs',
+      '3/8 (16 ounce) package elbow macaroni',
+      '1/4 teaspoon white sugar',
+      '1 tablespoon and 1 teaspoon all-purpose flour'
+    ]
+  };
+  var data = { ingredients: ingredients};
+  return data;
+}
+  </script>
+</html>
